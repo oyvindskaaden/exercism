@@ -3,13 +3,10 @@
 #![allow(unused)]
 
 pub fn production_rate_per_hour(speed: u8) -> f64 {
-    let production: f64 = (speed as f64) * 221_f64;
-
-    match speed {
-        1 ..= 4     => production,
-        5 ..= 8     => production * 0.9,
-        9 ..= 10    => production * 0.77,
-        _           => 0_f64
+    (speed as f64) * 221_f64 * match speed {
+        0 ..= 4         => 1.0,
+        5 ..= 8         => 0.9,
+        9 ..= u8::MAX   => 0.77
     }
 }
 
